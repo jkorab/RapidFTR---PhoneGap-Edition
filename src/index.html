@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>RapidFTR PhoneGap Test</title>
+	  <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	  <script type="text/javascript" charset="utf-8" src="phonegap.js"></script> 	  
+	  <script type="text/javascript" charset="utf-8">
+	  
+    var deviceInfo = function(){      
+      document.getElementById("platform").innerHTML = device.platform;
+      document.getElementById("version").innerHTML = device.version;
+      document.getElementById("uuid").innerHTML = device.uuid;
+      console.log("Height:" + window.innerHeight);
+	  console.log("Width:" + window.innerWidth);
+    }
+    
+    
+	var preventBehavior = function(e) { 
+      e.preventDefault(); 
+    };
+
+    function show_pic()
+    {
+      var viewport = document.getElementById('viewport');
+      viewport.style.display = "";
+      navigator.camera.getPicture(dump_pic, fail, { quality: 50 }); 
+    }
+
+    function dump_pic(data)
+    {
+      var viewport = document.getElementById('viewport');
+      console.log(data);
+      viewport.style.display = "";
+      viewport.style.position = "absolute";
+      viewport.style.top = "10px";
+      viewport.style.left = "10px";
+      document.getElementById("test_img").src = "data:image/jpeg;base64," + data;
+    }
+
+    function close()
+    {
+      var viewport = document.getElementById('viewport');
+      viewport.style.position = "relative";
+      viewport.style.display = "none";
+    }
+
+    function fail(fail)
+    {
+      alert(fail);
+    }
+
+  	
+	function init(){
+		document.addEventListener("touchmove", preventBehavior, false);
+		document.addEventListener("deviceReady", deviceInfo, true);		
+	}
+
+	function get_children()
+	{		
+		var RAPIDFTR_JSON_URL = "http://www.jakubkorab.net";
+	
+		var url = RAPIDFTR_JSON_URL;
+	
+		req = false;
+		try {
+			req = new XMLHttpRequest();
+		} catch(e) {
+			req = false;
+		}
+
+		
+		var params = "method=system.connect"; 
+		if(req) { // xhr available
+		req.onreadystatechange = function() {//Call a function when the state changes.
+			if(req.readyState == 4 && req.status == 200) {
+				alert("test " + req.responseText)
+				console.log("RESPONSE "+req.responseText);
+			} else {
+				alert(req.status)
+			}
+		}
+		req.open("GET", url, true);
+		//req.setRequestHeader("Content-length", params.length);
+		//req.setRequestHeader('Content-Type','text/html');
+		req.send(null);
+		}
+	}
+
+
+	function do_request() {
+		// probalby doesn't work because of cross site scripting
+				    var req = new XMLHttpRequest();  
+    req.open('GET', 'http://www.uswitch.com/gas-electricity/', true);  
+    req.onreadystatechange = function (aEvt) {  
+      if (req.readyState == 4) {  
+          alert(req.responseText);  
+         if(req.status == 200)  
+          alert(req.responseText);  
+         else  
+          alert(req.status + "Error loading page\n");  
+   }  
+ };  
+ req.send(null);  
+
+	}
+	
+  </script>
+  </head>
+  <body onload="init();" id="stage" class="theme">
+    <h1>Welcome to the RapidFTR PhoneGap spike!</h1>
+    <h2>this file is located at assets/index.html</h2>
+    <div id="info">
+      <h4>Platform: <span id="platform">&nbsp;</span></h4>
+      <h4>Version: <span id="version">&nbsp;</span></h4>
+      <h4>UUID:   <span id="uuid">&nbsp;</span></h4>
+    </div>
+    <a href="#" class="btn large" onclick="do_request();">Get Children</a>
+    <a href="#" class="btn large" onclick="show_pic();">Get a Picture</a>
+    <div id="viewport" class="viewport" style="display: none;">       
+      <img style="width:60px;height:60px" id="test_img" src="" />
+    </div> 
+  </body>
+</html>

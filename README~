@@ -1,0 +1,9 @@
+This is the root folder for the PhoneGap spike.
+
+To set up the dev environment, follow the PhoneGap setup instructions at:
+http://phonegap.pbworks.com/Getting-Started-with-PhoneGap-%28BlackBerry%29
+
+This involves:
+Install Eclipse 3.4
+Install the BB "plugin" over the top of your Eclipse installation.
+

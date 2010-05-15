@@ -1,3 +1,12 @@
 This is the root folder for the PhoneGap spike.
 
-Nothing interesting here (yet).
+
+Some docs here:
+http://wiki.phonegap.com/Roadmap
+http://wiki.phonegap.com/Getting-started-with-Android-PhoneGap-in-Eclipse (lots of mistakes refer to the readme.md in src)
+
+To create the android project do something like this.
+c:\dev\phonegap-android>ruby droidgap c:\\dev\\android-sdk-windows PhoneGapSpike com.rapidftr.spike.phonegap c:\\dev\\workspace\\RapidFTR---PhoneGap-Edition\\src rapid-phonegap
+
+Open issues:
+* How to connect to the API on the server. AJAX doesn't seem to work because of cross site scripting issues
